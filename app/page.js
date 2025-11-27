@@ -1,66 +1,125 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState } from "react";
+
+import StatusBar from "./components/StatusBar";
+import TopHeader from "./components/TopHeader";
+import Tabs from "./components/Tabs";
+import MarketCard from "./components/MarketCard";
+import BottomNav from "./components/BottomNav";
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState("Forex");
+  const [bottomTab, setBottomTab] = useState("Trade");
+
+  // Example list of market items
+  const marketData = [
+    {
+      time: "15:00:00",
+      pair: "EUR/GBP",
+      change: "+30",
+      changePercent: "+23.2%",
+      bidValue: "1478.256369",
+      bidLabel: "L:235698",
+      askValue: "1478.256369",
+      askLabel: "H:25.3659",
+    },
+    {
+      time: "15:10:00",
+      pair: "USD/JPY",
+      change: "+12",
+      changePercent: "+10.5%",
+      bidValue: "125.563211",
+      bidLabel: "L:145698",
+      askValue: "125.563211",
+      askLabel: "H:15.3659",
+    },
+     {
+      time: "15:00:00",
+      pair: "EUR/GBP",
+      change: "+30",
+      changePercent: "+23.2%",
+      bidValue: "1478.256369",
+      bidLabel: "L:235698",
+      askValue: "1478.256369",
+      askLabel: "H:25.3659",
+    },
+    {
+      time: "15:10:00",
+      pair: "USD/JPY",
+      change: "+12",
+      changePercent: "+10.5%",
+      bidValue: "125.563211",
+      bidLabel: "L:145698",
+      askValue: "125.563211",
+      askLabel: "H:15.3659",
+    },
+     {
+      time: "15:00:00",
+      pair: "EUR/GBP",
+      change: "+30",
+      changePercent: "+23.2%",
+      bidValue: "1478.256369",
+      bidLabel: "L:235698",
+      askValue: "1478.256369",
+      askLabel: "H:25.3659",
+    },
+    {
+      time: "15:10:00",
+      pair: "USD/JPY",
+      change: "+12",
+      changePercent: "+10.5%",
+      bidValue: "125.563211",
+      bidLabel: "L:145698",
+      askValue: "125.563211",
+      askLabel: "H:15.3659",
+    },
+    
+  ];
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="w-full min-h-screen bg-zinc-900 flex justify-center items-center py-6">
+
+      {/* MOBILE UI CONTAINER */}
+      <div className="w-[414px] max-w-full bg-black rounded-3xl overflow-hidden shadow-2xl border border-zinc-800">
+
+        {/* TOP STATUS BAR */}
+        <StatusBar />
+
+        {/* TOP HEADER */}
+        <TopHeader />
+
+        {/* TABS */}
+        <Tabs
+          tabs={["Favourites", "Forex", "Crypto", "Indices", "Deriv"]}
+          activeTab={activeTab}
+          onChange={(tab) => setActiveTab(tab)}
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        {/* MARKET LIST */}
+        <div className="divide-y divide-zinc-800">
+          {marketData.map((item, index) => (
+            <MarketCard
+              key={index}
+              time={item.time}
+              pair={item.pair}
+              change={item.change}
+              changePercent={item.changePercent}
+              bidValue={item.bidValue}
+              bidLabel={item.bidLabel}
+              askValue={item.askValue}
+              askLabel={item.askLabel}
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          ))}
         </div>
-      </main>
+
+        {/* BOTTOM NAV */}
+        <BottomNav
+          activeTab={bottomTab}
+          onChange={(tab) => setBottomTab(tab)}
+        />
+
+      </div>
     </div>
   );
 }
